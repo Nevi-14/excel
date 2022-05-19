@@ -1,15 +1,9 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="dark">
-    <ion-title>ExelToJsonExample</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content size="12" class="ion-padding">
-
-  <h2>Cargar Archivos</h2>
+<h2>File Upload & Image Preview</h2>
+<p class="lead">No Plugins <b>Just Javascript</b></p>
 
 <!-- Upload  -->
 <form id="file-upload-form" class="uploader">
-  <input (change)="fileUpload($event)" id="file-upload" type="file" name="fileUpload" accept=".xls,.xlsx" />
+  <input (change)="fileUpload($event)" id="file-upload" type="file" name="fileUpload" accept="image/*" />
 
   <label for="file-upload" id="file-drag">
     <img id="file-image" src="#" alt="Preview" class="hidden">
@@ -27,11 +21,3 @@
     </div>
   </label>
 </form>
-
-<ion-row>
-  <ion-col size="12" class="ion-padding">
-    {{convertedJson}}
-  </ion-col>
-</ion-row>
-
-</ion-content>
