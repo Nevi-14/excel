@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';  // Convierte excel a objeto
+interface array {
+ID:number,
+idCliente:number,
+nombre:string,
+precio:number,
+codigoBarras:string,
+stockMinimo: number,
+idProduc: string
+
+}
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -7,6 +17,8 @@ import * as XLSX from 'xlsx';  // Convierte excel a objeto
 })
 export class AppComponent {
     convertedJson!:string;
+
+    array:array [] =[]
   constructor() {}
 
   // INSTALAR npm install xlsx --save para trabajr excel como un objeto
@@ -22,9 +34,17 @@ export class AppComponent {
       //  EL METODO READ TIENE DOS PARAMETROS 1 EL BINARY DATA Y EL TIPO
       let workbook = XLSX.read(binaryData, {type:'binary'});
       workbook.SheetNames.forEach(sheet =>{
-const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+const data:any = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
 console.log(data)
-this.convertedJson = JSON.stringify(data, undefined, 4);
+this.array = data;
+
+console.log(this.array, 'data')
+
+
+this.array.forEach(item =>{
+    console.log(item.ID)
+})
+//this.convertedJson = JSON.stringify(data, undefined, 4);
       });
       console.log(workbook)
 
