@@ -86,8 +86,8 @@ let ciudades = [];
 console.log(listaEstados,'listaEstados')
 this.array = data;
 console.log(this.array,'this.array')
-this.array.forEach(async(item) =>{
- console.log(item,'item');
+this.array.forEach(async(item,index2) =>{
+ console.log(item,'item', index2);
  
 let estado = listaEstados.findIndex( (estado) => estado.valor == item.Provincia);
 let Cod_Estado,Estado = null;
@@ -98,8 +98,21 @@ if(estado >=0){
   this.geolocalizacionService.State_Code = Cod_Estado;
  
   this.geolocalizacionService.getCities().toPromise().then( (cities:any[])=>{
+  console.log('cities', cities)
+  let geolocalizacion ={
+    Cod_Usuario : item.Cod_Usuario,
+    Codigo_Pais: item.Cod_Pais,
+    Pais : this.removerCaracteresEspeciales(item.Pais),
+    Codigo_Estado : Cod_Estado,
+    Estado: Estado,
+    Codigo_Ciudad: 0,
+    Ciudad: item.Distrito,
+    Codigo_Postal: null,
+    Direccion: null
+  }
+  console.log(cities.length == 0,'cities.length == 0')
+
   
- 
     cities.forEach( (city, index) =>{
       let data = {
         id: city.id,
@@ -108,27 +121,17 @@ if(estado >=0){
      let indexCiudad = ciudades.findIndex( (ciudad) => ciudad.valor == data.valor);
      if(indexCiudad < 0)  ciudades.push(data)
   
-      let geolocalizacion ={
-        Cod_Usuario : item.Cod_Usuario,
-        Codigo_Pais: item.Cod_Pais,
-        Pais : this.removerCaracteresEspeciales(item.Pais),
-        Codigo_Estado : Cod_Estado,
-        Estado: Estado,
-        Codigo_Ciudad: 0,
-        Ciudad: item.Distrito,
-        Codigo_Postal: null,
-        Direccion: null
-      }
-
+   
+    console.log('indexCiudad',indexCiudad)
   let indexRetornoDate = retornarData.findIndex( (retorno) => retorno.Cod_Usuario == geolocalizacion.Cod_Usuario);
   if(indexRetornoDate < 0)  {
-    contador +=1;
+ 
     retornarData.push(geolocalizacion)
   }   
   console.log(geolocalizacion,'geolocalizacion')
   console.log(contador,'contador')
 if(index == cities.length -1){
- 
+  contador +=1;
 if(contador == this.array.length){
 //  console.log(ciudades,'ciudades')
 // console.log(retornarData,'retornarData')

@@ -25,6 +25,8 @@ interface array {
   Canton:string,
   Cod_Distrito:number,
   Distrito:string,
+  Latitud:number,
+  Longitud:number
   }
 @Component({
   selector: 'app-root',
@@ -86,7 +88,7 @@ let ciudades = [];
 console.log(listaEstados,'listaEstados')
 this.array = data;
 console.log(this.array,'this.array')
-this.array.forEach(async(item) =>{
+this.array.forEach(async(item,index2) =>{
  console.log(item,'item');
  
 let estado = listaEstados.findIndex( (estado) => estado.valor == item.Provincia);
@@ -116,6 +118,8 @@ if(estado >=0){
         Estado: Estado,
         Codigo_Ciudad: 0,
         Ciudad: item.Distrito,
+        Latitud: item.Latitud,
+        Longitud: item.Longitud,
         Codigo_Postal: null,
         Direccion: null
       }
